@@ -1,11 +1,14 @@
-import "./App.scss";
+import { BrowserRouter } from 'react-router-dom';
+import { AppRouter } from './routes';
+import './App.scss';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <h1>hadar</h1>
-    </div>
+    <>
+      <BrowserRouter>
+        <AppRouter />
+      </BrowserRouter>
+    </>
   );
-}
-
+};
 export default App;
