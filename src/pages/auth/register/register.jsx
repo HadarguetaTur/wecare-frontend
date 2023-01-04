@@ -4,6 +4,7 @@ import './register.scss';
 import { useState, useEffect } from 'react';
 import { Utils } from '../../../services/utils.service.js';
 import { authService } from '../../../services/auth.service.js';
+import { useNavigate } from 'react-router-dom';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -14,6 +15,7 @@ const Register = () => {
   const [alertType, setAlertType] = useState('');
   const [hasError, setHasError] = useState(false);
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   const registerUser = async (event) => {
     setLoading(true);
@@ -33,8 +35,9 @@ const Register = () => {
       // 1 - set logged in to true in local storage
       // 2 - set username in local storage
       // 3 - dispatch user to redux
-      setUser(result.data.user);
+      setUser(result.user);
       setHasError(false);
+      navigate('/app/social/streams');
       setAlertType('alert-success');
     } catch (error) {
       setLoading(false);

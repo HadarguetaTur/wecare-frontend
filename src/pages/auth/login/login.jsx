@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { FaArrowRight } from 'react-icons/fa';
 import Input from '../../../components/input/Input.jsx';
 import Button from '../../../components/button/Button.jsx';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './login.scss';
 import { authService } from '../../../services/auth.service.js';
 
@@ -15,6 +15,7 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [user, setUser] = useState();
+  const navigate = useNavigate();
 
   const loginUser = async (event) => {
     setLoading(true);
@@ -27,8 +28,9 @@ const Login = () => {
       // 1 - set logged in to true in local storage
       // 2 - set username in local storage
       // 3 - dispatch user to redux
-      setUser(result.data.user);
+      setUser(result.user);
       setKeepLoggedIn(keepLoggedIn);
+      navigate('/app/social/streams');
       setHasError(false);
       setAlertType('alert-success');
     } catch (error) {
@@ -41,11 +43,8 @@ const Login = () => {
 
   useEffect(() => {
     if (loading && !user) return;
-    if (user) {
-      console.log('navigate to streams page from login page');
-      setLoading(false);
-    }
-  }, [loading, user]);
+    if (user) navigate('/app/social/streams');
+  }, [loading, user, navigate]);
 
   return (
     <div className="auth-inner">

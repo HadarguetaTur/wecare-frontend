@@ -17,7 +17,7 @@ export const AppRouter = () => {
       element: <ResetPassword />
     },
     {
-      path: '/app/social',
+      path: '/app/social/streams',
       element: <Streams />
     }
   ]);

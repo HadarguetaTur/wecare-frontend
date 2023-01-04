@@ -16,7 +16,6 @@ export class Utils {
     context.fillStyle = backgroundColor;
     context.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Draw text
     context.font = 'normal 80px sans-serif';
     context.fillStyle = foregroundColor;
     context.textAlign = 'center';
