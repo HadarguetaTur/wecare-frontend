@@ -62,6 +62,47 @@
     "eslint-plugin-jsx-a11y": "^6.6.1",
     "eslint-plugin-react": "^7.31.11",
     "eslint-plugin-react-hooks": "^4.6.0",
+    "jest-canvas-mock": "^2.4.0",
     "prettier": "^2.8.1"
+  },
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.js",
+      "!src/**/test/*.js?(x)",
+      "!**/node_modules/**"
+    ],
+    "coverageReporters": [
+      "text-summary",
+      "lcov"
+    ],
+    "moduleNameMapper": {
+      "@components/(.*)": [
+        "<rootDir>/src/components/$1"
+      ],
+      "@services/(.*)": [
+        "<rootDir>/src/services/$1"
+      ],
+      "@hooks/(.*)": [
+        "<rootDir>/src/hooks/$1"
+      ],
+      "@mocks/(.*)": [
+        "<rootDir>/src/mocks/$1"
+      ],
+      "@pages/(.*)": [
+        "<rootDir>/src/pages/$1"
+      ],
+      "@redux/(.*)": [
+        "<rootDir>/src/redux-toolkit/$1"
+      ],
+      "@assets/(.*)": [
+        "<rootDir>/src/assets/$1"
+      ],
+      "@colors/(.*)": [
+        "<rootDir>/src/colors/$1"
+      ],
+      "@root/(.*)": [
+        "<rootDir>/src/$1"
+      ]
+    }
   }
 }
