@@ -5,6 +5,7 @@ import Button from '../../../components/button/Button.jsx';
 import { Link, useNavigate } from 'react-router-dom';
 import './login.scss';
 import { authService } from '../../../services/auth.service.js';
+import useLocalStorage from '../../../hooks/useLocalStorage.js';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +16,8 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [user, setUser] = useState();
+  const [ setStoredUsername] = useLocalStorage('username','set')
+  const [ setLoggedIn] = useLocalStorage('KeepLoggedIn','set')
   const navigate = useNavigate();
 
   const loginUser = async (event) => {
@@ -25,11 +28,11 @@ const Login = () => {
         username,
         password
       });
-      // 1 - set logged in to true in local storage
-      // 2 - set username in local storage
+
       // 3 - dispatch user to redux
       setUser(result.user);
-      setKeepLoggedIn(keepLoggedIn);
+      setLoggedIn(keepLoggedIn)
+      setStoredUsername(username);   
       navigate('/app/social/streams');
       setHasError(false);
       setAlertType('alert-success');

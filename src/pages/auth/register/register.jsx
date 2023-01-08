@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react';
 import { Utils } from '../../../services/utils.service.js';
 import { authService } from '../../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
+import useLocalStorage from '../../../hooks/useLocalStorage.js';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -15,6 +16,8 @@ const Register = () => {
   const [alertType, setAlertType] = useState('');
   const [hasError, setHasError] = useState(false);
   const [user, setUser] = useState();
+  const [ setStoredUsername] = useLocalStorage('username','set')
+  const [ setLoggedIn] = useLocalStorage('KeepLoggedIn','set')
   const navigate = useNavigate();
 
   const registerUser = async (event) => {
@@ -32,9 +35,9 @@ const Register = () => {
       });
       console.log(result);
 
-      // 1 - set logged in to true in local storage
-      // 2 - set username in local storage
       // 3 - dispatch user to redux
+      setLoggedIn(true)
+      setStoredUsername(username);   
       setUser(result.user);
       setHasError(false);
       navigate('/app/social/streams');
