@@ -1,18 +1,18 @@
-import { httpService } from './http.service';
+import axios from './axios';
 
 class UserService {
   async getUserSuggestions() {
-    const response = await httpService.get('/user/profile/user/suggestions');
+    const response = await axios.get('/user/profile/user/suggestions');
     return response;
   }
 
   async logoutUser() {
-    const response = await httpService.get('/signout');
+    const response = await axios.get('/signout');
     return response;
   }
 
   async checkCurrentUser() {
-    const response = await httpService.get('/currentuser');
+    const response = await axios.get('/currentuser');
     return response;
   }
 }

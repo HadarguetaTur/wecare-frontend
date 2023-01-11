@@ -1,33 +1,33 @@
-import { httpService } from './http.service';
+import axios from './axios';
 
 class FollowerService {
   async getUserFollowing() {
-    const response = await httpService.get('/user/following');
+    const response = await axios.get('/user/following');
     return response;
   }
 
   async getUserFollowers(userId) {
-    const response = await httpService.get(`/user/followers/${userId}`);
+    const response = await axios.get(`/user/followers/${userId}`);
     return response;
   }
 
   async followUser(followerId) {
-    const response = await httpService.put(`/user/follow/${followerId}`);
+    const response = await axios.put(`/user/follow/${followerId}`);
     return response;
   }
 
   async unFollowUser(followeeId, followerId) {
-    const response = await httpService.put(`/user/unfollow/${followeeId}/${followerId}`);
+    const response = await axios.put(`/user/unfollow/${followeeId}/${followerId}`);
     return response;
   }
 
   async blockUser(followerId) {
-    const response = await httpService.put(`/user/block/${followerId}`);
+    const response = await axios.put(`/user/block/${followerId}`);
     return response;
   }
 
   async unblockUser(followerId) {
-    const response = await httpService.put(`/user/unblock/${followerId}`);
+    const response = await axios.put(`/user/unblock/${followerId}`);
     return response;
   }
 }

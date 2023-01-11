@@ -16,8 +16,8 @@ const Register = () => {
   const [alertType, setAlertType] = useState('');
   const [hasError, setHasError] = useState(false);
   const [user, setUser] = useState();
-  const [ setStoredUsername] = useLocalStorage('username','set')
-  const [ setLoggedIn] = useLocalStorage('KeepLoggedIn','set')
+  const [setStoredUsername] = useLocalStorage('username', 'set');
+  const [setLoggedIn] = useLocalStorage('KeepLoggedIn', 'set');
   const navigate = useNavigate();
 
   const registerUser = async (event) => {
@@ -36,8 +36,8 @@ const Register = () => {
       console.log(result);
 
       // 3 - dispatch user to redux
-      setLoggedIn(true)
-      setStoredUsername(username);   
+      setLoggedIn(true);
+      setStoredUsername(username);
       setUser(result.user);
       setHasError(false);
       navigate('/app/social/streams');

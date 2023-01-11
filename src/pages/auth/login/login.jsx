@@ -6,6 +6,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import './login.scss';
 import { authService } from '../../../services/auth.service.js';
 import useLocalStorage from '../../../hooks/useLocalStorage.js';
+import { Utils } from '../../../services/utils.service.js';
+import useSessionStorage from '../../../hooks/useSessionStorage.js';
+import { useDispatch } from 'react-redux';
 
 const Login = () => {
   const [username, setUsername] = useState('');
@@ -16,9 +19,11 @@ const Login = () => {
   const [errorMessage, setErrorMessage] = useState('');
   const [alertType, setAlertType] = useState('');
   const [user, setUser] = useState();
-  const [ setStoredUsername] = useLocalStorage('username','set')
-  const [ setLoggedIn] = useLocalStorage('KeepLoggedIn','set')
+  const [setStoredUsername] = useLocalStorage('username', 'set');
+  const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
+  const [pageReload] = useSessionStorage('pageReload', 'set');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const loginUser = async (event) => {
     setLoading(true);
@@ -28,14 +33,11 @@ const Login = () => {
         username,
         password
       });
-
-      // 3 - dispatch user to redux
-      setUser(result.user);
-      setLoggedIn(keepLoggedIn)
-      setStoredUsername(username);   
-      navigate('/app/social/streams');
+      console.log(result);
+      setLoggedIn(keepLoggedIn);
+      setStoredUsername(username);
       setHasError(false);
-      setAlertType('alert-success');
+      Utils.dispatchUser(result, pageReload, dispatch, setUser);
     } catch (error) {
       setLoading(false);
       setHasError(true);
@@ -45,6 +47,7 @@ const Login = () => {
   };
 
   useEffect(() => {
+    console.log(user);
     if (loading && !user) return;
     if (user) navigate('/app/social/streams');
   }, [loading, user, navigate]);
