@@ -8,7 +8,7 @@ const Social = lazy(() => import('./pages/social/Social'));
 const Chat = lazy(() => import('./pages/social/chat/Chat'));
 const Followers = lazy(() => import('./pages/social/followers/followers'));
 const Following = lazy(() => import('./pages/social/following/following'));
-const Notification = lazy(() => import('./pages/social/notificatiions/notifications'));
+const Notification = lazy(() => import('./pages/social/notificatiions/Notifications'));
 const People = lazy(() => import('./pages/social/peaple/Peaple'));
 const Photos = lazy(() => import('./pages/social/photos/Photos'));
 const Profile = lazy(() => import('./pages/social/profile/Profile'));

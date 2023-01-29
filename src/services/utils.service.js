@@ -1,6 +1,7 @@
 import { floor, random, some } from 'lodash';
 import { avatarColors } from '../utils/static.data';
 import { addUser, clearUser } from '../store/reducers/user/user.reducer';
+import { addNotification, clearNotification } from '../store/reducers/notification/notification.reducer';
 
 export class Utils {
   static avatarColor() {
@@ -23,7 +24,6 @@ export class Utils {
     context.textAlign = 'center';
     context.textBaseline = 'middle';
     context.fillText(text, canvas.width / 2, canvas.height / 2);
-
     return canvas.toDataURL('image/png');
   }
 
@@ -35,9 +35,18 @@ export class Utils {
 
   static clearStore({ dispatch, deleteStorageUsername, deleteSessionPageReload, setLoggedIn }) {
     dispatch(clearUser());
+    dispatch(clearNotification());
     deleteStorageUsername();
     deleteSessionPageReload();
     setLoggedIn(false);
+  }
+
+  static dispatchNotification(message, type, dispatch) {
+    dispatch(addNotification({ message, type }));
+  }
+
+  static dispatchClearNotification(dispatch) {
+    dispatch(clearNotification());
   }
 
   static appEnvironment() {
