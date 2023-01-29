@@ -1,6 +1,5 @@
-import { floor, random } from 'lodash';
+import { floor, random, some } from 'lodash';
 import { avatarColors } from '../utils/static.data';
-import { createSearchParams } from 'react-router-dom';
 import { addUser, clearUser } from '../store/reducers/user/user.reducer';
 
 export class Utils {
@@ -29,7 +28,6 @@ export class Utils {
   }
 
   static dispatchUser(result, pageReload, dispatch, setUser) {
-    console.log(result);
     pageReload(true);
     dispatch(addUser({ token: result.data.token, profile: result.data.user }));
     setUser(result.data.user);
@@ -37,7 +35,6 @@ export class Utils {
 
   static clearStore({ dispatch, deleteStorageUsername, deleteSessionPageReload, setLoggedIn }) {
     dispatch(clearUser());
-    // dispatch clear notification action
     deleteStorageUsername();
     deleteSessionPageReload();
     setLoggedIn(false);
@@ -63,8 +60,29 @@ export class Utils {
     return items;
   }
 
-  static navigateToProfile(data, navigate) {
-    const url = `/app/social/profile/${data?.username}?${createSearchParams({ id: data?._id, uId: data?.uId })}`;
-    navigate(url);
+  static appImageUrl(version, id) {
+    if (typeof version === 'string' && typeof id === 'string') {
+      version = version.replace(/['"]+/g, '');
+      id = id.replace(/['"]+/g, '');
+    }
+    return `https://res.cloudinary.com/dyamr9ym3/image/upload/v${version}/${id}`;
+  }
+
+  static generateString(length) {
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let result = ' ';
+    const charactersLength = characters.length;
+    for (let i = 0; i < length; i++) {
+      result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+  }
+
+  static checkIfUserIsBlocked(blocked, userId) {
+    return some(blocked, (id) => id === userId);
+  }
+
+  static checkIfUserIsFollowed(userFollowers, postCreatorId, userId) {
+    return some(userFollowers, (user) => user._id === postCreatorId || postCreatorId === userId);
   }
 }

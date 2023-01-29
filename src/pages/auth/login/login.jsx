@@ -33,7 +33,6 @@ const Login = () => {
         username,
         password
       });
-      console.log(result);
       setLoggedIn(keepLoggedIn);
       setStoredUsername(username);
       setHasError(false);
@@ -47,7 +46,6 @@ const Login = () => {
   };
 
   useEffect(() => {
-    console.log(user);
     if (loading && !user) return;
     if (user) navigate('/app/social/streams');
   }, [loading, user, navigate]);

@@ -33,8 +33,6 @@ const Register = () => {
         avatarColor,
         avatarImage
       });
-      console.log(result);
-
       // 3 - dispatch user to redux
       setLoggedIn(true);
       setStoredUsername(username);
