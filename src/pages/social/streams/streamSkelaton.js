@@ -1,14 +1,18 @@
 import './Streams.scss';
 import SuggestionsSkeletons from '../../../components/suggestions/SeggestionsSkeleton';
+import PostFormSkeleton from '../../../components/post/post-form/postFormSkelaton';
+import PostSkeleton from '../../../components/post/post/PostSkelaton';
 
 const StreamsSkeleton = () => {
   return (
     <div className="streams" data-testid="streams">
       <div className="streams-content">
         <div className="streams-post">
-          <div>Post Form</div>
+          <PostFormSkeleton />
           {[1, 2, 3, 4, 5, 6].map((index) => (
-            <div key={index}>Posts Items</div>
+            <div key={index}>
+              <PostSkeleton />
+            </div>
           ))}
         </div>
         <div className="streams-suggestions">

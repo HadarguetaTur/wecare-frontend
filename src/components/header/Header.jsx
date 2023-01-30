@@ -87,6 +87,7 @@ const Header = () => {
       setLoggedIn(false);
       Utils.clearStore({ dispatch, deleteStorageUsername, deleteSessionPageReload, setLoggedIn });
       await userService.logoutUser();
+      Utils.dispatchNotification('Logout successful', 'success', dispatch);
       navigate('/');
     } catch (error) {
       Utils.dispatchNotification(error.response.data.message, 'error', dispatch);
