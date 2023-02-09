@@ -1,7 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import logo from '../../assets/images/CFC.svg';
 import { FaCaretDown, FaCaretUp, FaRegBell, FaRegEnvelope } from 'react-icons/fa';
-
 import './Header.scss';
 import Avatar from '../avatar/Avatar';
 import { Utils } from '../../services/utils.service';

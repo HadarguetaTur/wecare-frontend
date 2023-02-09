@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   token: '',
-  profile: null
+  profile: JSON.parse(localStorage.getItem('profile')) || null
 };
 
 const userSlice = createSlice({
@@ -13,10 +13,12 @@ const userSlice = createSlice({
       const { token, profile } = action.payload;
       state.token = token;
       state.profile = profile;
+      localStorage.setItem('profile', JSON.stringify(profile));
     },
     clearUser: (state) => {
       state.token = '';
       state.profile = null;
+      localStorage.removeItem('profile');
     },
     updateUserProfile: (state, action) => {
       state.profile = action.payload;

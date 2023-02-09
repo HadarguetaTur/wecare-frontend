@@ -8,6 +8,7 @@ class AuthService {
 
   async signIn(body) {
     const response = await axios.post('/signin', body);
+    console.log(response);
     return response;
   }
 

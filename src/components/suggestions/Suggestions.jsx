@@ -1,15 +1,31 @@
 import Avatar from '../avatar/Avatar';
 import Button from '../button/Button';
 import { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import './Suggestions.scss';
+import { addToSuggestions } from '../../store/reducers/suggestions/suggestions.reducer';
+import { filter } from 'lodash';
+import { Utils } from '../../services/utils.service';
+import { FollowersUtils } from '../../services/followers-utils.service';
 
 const Suggestions = () => {
   const { suggestions } = useSelector((state) => state);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const followUser = async (user) => {
+    try {
+      FollowersUtils.followUser(user, dispatch);
+      const result = filter(users, (data) => data?._id !== user?._id);
+      setUsers(result);
+      dispatch(addToSuggestions({ users: result, isLoading: false }));
+    } catch (error) {
+      Utils.dispatchNotification(error.response.data.message, 'error', dispatch);
+    }
+  };
 
   useEffect(() => {
     setUsers(suggestions?.users);
@@ -23,8 +39,8 @@ const Suggestions = () => {
       <hr />
       <div className="suggestions-container">
         <div className="suggestions">
-          {users?.map((user, index) => (
-            <div data-testid="suggestions-item" className="suggestions-item" key={index}>
+          {users[0]?.map((user) => (
+            <div data-testid="suggestions-item" className="suggestions-item" key={user?._id}>
               <Avatar
                 name={user?.username}
                 bgColor={user?.avatarColor}
@@ -34,16 +50,19 @@ const Suggestions = () => {
               />
               <div className="title-text">{user?.username}</div>
               <div className="add-icon">
-                <Button label="Follow" className="button follow" disabled={false} />
+                <Button
+                  label="Follow"
+                  className="button follow"
+                  disabled={false}
+                  handleClick={() => followUser(user)}
+                />
               </div>
             </div>
           ))}
         </div>
-        {users.length > 8 && (
-          <div className="view-more" onClick={() => navigate('/app/social/people')}>
-            View More
-          </div>
-        )}
+        <div className="view-more" onClick={() => navigate('/app/social/people')}>
+          View More
+        </div>
       </div>
     </div>
   );

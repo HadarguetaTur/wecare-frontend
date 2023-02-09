@@ -6,6 +6,8 @@ import { Utils } from '../../../services/utils.service.js';
 import { authService } from '../../../services/auth.service.js';
 import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../../hooks/useLocalStorage.js';
+import { useDispatch } from 'react-redux';
+import useSessionStorage from '../../../hooks/useSessionStorage.js';
 
 const Register = () => {
   const [username, setUsername] = useState('');
@@ -18,7 +20,9 @@ const Register = () => {
   const [user, setUser] = useState();
   const [setStoredUsername] = useLocalStorage('username', 'set');
   const [setLoggedIn] = useLocalStorage('KeepLoggedIn', 'set');
+  const [pageReload] = useSessionStorage('pageReload', 'set');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const registerUser = async (event) => {
     setLoading(true);
@@ -33,28 +37,23 @@ const Register = () => {
         avatarColor,
         avatarImage
       });
-      // 3 - dispatch user to redux
       setLoggedIn(true);
       setStoredUsername(username);
-      setUser(result.user);
       setHasError(false);
-      navigate('/app/social/streams');
       setAlertType('alert-success');
+      Utils.dispatchUser(result, pageReload, dispatch, setUser);
     } catch (error) {
       setLoading(false);
       setHasError(true);
       setAlertType('alert-error');
-      setErrorMessage(error?.response?.data.message);
+      setErrorMessage(error?.response?.data?.message);
     }
   };
 
   useEffect(() => {
     if (loading && !user) return;
-    if (user) {
-      console.log('navigate to streams page');
-      setLoading(false);
-    }
-  }, [loading, user]);
+    if (user) navigate('/app/social/streams');
+  }, [loading, user, navigate]);
 
   return (
     <div className="auth-inner">

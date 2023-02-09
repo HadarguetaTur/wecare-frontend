@@ -46,6 +46,7 @@ const ModalBoxSelection = React.forwardRef(({ setSelectedPostImage }, ref) => {
               type="file"
               className="file-input"
               onClick={() => {
+                console.log('hereS');
                 if (fileInputRef.current) {
                   fileInputRef.current.value = null;
                 }

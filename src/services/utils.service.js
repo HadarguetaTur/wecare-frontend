@@ -75,7 +75,7 @@ export class Utils {
       version = version.replace(/['"]+/g, '');
       id = id.replace(/['"]+/g, '');
     }
-    return `https://res.cloudinary.com/dyamr9ym3/image/upload/v${version}/${id}`;
+    return `https://res.cloudinary.com/wecare-img/image/upload/v${version}/${id}`;
   }
 
   static generateString(length) {
@@ -121,6 +121,10 @@ export class Utils {
     } else {
       return millify(data);
     }
+  }
+
+  static checkIfUserIsOnline(username, onlineUsers) {
+    return some(onlineUsers, (user) => user === username?.toLowerCase());
   }
 
   static getImage(imageId, imageVersion) {

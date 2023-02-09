@@ -12,12 +12,12 @@ import {
   toggleImageModal
 } from '../../../store/reducers/modal/modal.reducer';
 import AddPost from '../post-modal/post-add/PostAdd';
-import { useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { ImageUtils } from '../../../services/image-utils.service';
 
 const PostForm = () => {
   const { profile } = useSelector((state) => state.user);
-  const { type, isOpen, openFileDialog, gifModalIsOpen, feelingIsOpen } = useSelector((state) => state.modal);
+  const { type, isOpen, openFileDialog, gifModalIsOpen, feelingsIsOpen } = useSelector((state) => state.modal);
   const [selectedPostImage, setSelectedPostImage] = useState();
   const fileInputRef = useRef();
   const dispatch = useDispatch();
@@ -39,13 +39,12 @@ const PostForm = () => {
 
   const openFeelingsComponent = () => {
     dispatch(openModal({ type: 'add' }));
-    dispatch(toggleFeelingModal(!feelingIsOpen));
+    dispatch(toggleFeelingModal(!feelingsIsOpen));
   };
 
   const handleFileChange = (event) => {
-    ImageUtils.addFileToRedux(event, '', setSelectedPostImage, dispatch);
+    ImageUtils.addFileToRedux(event, '', setSelectedPostImage, dispatch, 'image');
   };
-
   return (
     <>
       <div className="post-form" data-testid="post-form">

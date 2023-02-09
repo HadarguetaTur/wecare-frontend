@@ -26,6 +26,7 @@ const Notification = () => {
   const getUserNotifications = async () => {
     try {
       const response = await notificationService.getUserNotifications();
+      console.log(response.data.notifications);
       setNotifications(response.data.notifications);
       setLoading(false);
     } catch (error) {

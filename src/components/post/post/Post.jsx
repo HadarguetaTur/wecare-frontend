@@ -88,7 +88,7 @@ const Post = ({ post, showIcons }) => {
                 bgColor={post?.avatarColor}
                 textColor="#ffffff"
                 size={50}
-                avatarSrc={post?.profilePicture}
+                avatarSrc={post.profilePicture}
               />
             </div>
             <div className="user-post-info">
