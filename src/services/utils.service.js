@@ -1,4 +1,4 @@
-import { floor, random, some } from 'lodash';
+import { findIndex, floor, random, some } from 'lodash';
 import { avatarColors } from '../utils/static.data';
 import { addUser, clearUser } from '../store/reducers/user/user.reducer';
 import { addNotification, clearNotification } from '../store/reducers/notification/notification.reducer';
@@ -129,5 +129,22 @@ export class Utils {
 
   static getImage(imageId, imageVersion) {
     return imageId && imageVersion ? this.appImageUrl(imageVersion, imageId) : '';
+  }
+
+  static removeUserFromList(list, userId) {
+    const index = findIndex(list, (id) => id === userId);
+    list.splice(index, 1);
+    return list;
+  }
+
+  static checkUrl(url, word) {
+    return url.includes(word);
+  }
+
+  static renameFile(element) {
+    const fileName = element.name.split('.').slice(0, -1).join('.');
+    const blob = element.slice(0, element.size, '/image/png');
+    const newFile = new File([blob], `${fileName}.png`, { type: '/image/png' });
+    return newFile;
   }
 }

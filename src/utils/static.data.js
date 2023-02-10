@@ -57,12 +57,6 @@ export const sideBarItems = [
     iconName: 'FaHeart'
   },
   {
-    index: 6,
-    name: 'Photos',
-    url: '/app/social/photos',
-    iconName: 'FaImages'
-  },
-  {
     index: 7,
     name: 'Notifications',
     url: '/app/social/notifications',
