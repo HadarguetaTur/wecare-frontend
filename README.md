@@ -1,3 +1,6 @@
+
+                          ![CFC (3)](https://user-images.githubusercontent.com/106341739/218722882-7bac0d3e-84a9-4d00-8014-f8644a30b7c5.png)
+
 # Wecare
 
 
@@ -9,4 +12,3 @@ I’m building the front end using React, integrating with the NodeJS backend de
  ● Helping therapists build themselves as an independent business
 
 
-![CFC (3)](https://user-images.githubusercontent.com/106341739/218722882-7bac0d3e-84a9-4d00-8014-f8644a30b7c5.png)
