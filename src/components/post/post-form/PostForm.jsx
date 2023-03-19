@@ -78,7 +78,7 @@ const PostForm = () => {
                   }}
                   handleChange={handleFileChange}
                 />
-                <img src={photo} alt="" /> Photo
+                <img src={photo} alt="" onClick={() => openImageModal()} /> Photo
               </li>
               <li className="post-form-list-item" onClick={() => openGifModal()}>
                 <img src={gif} alt="" /> Gif

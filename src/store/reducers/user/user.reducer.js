@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   token: '',
-  profile: JSON.parse(localStorage.getItem('profile')) || null
+  profile: null
 };
 
 const userSlice = createSlice({
@@ -11,14 +11,13 @@ const userSlice = createSlice({
   reducers: {
     addUser: (state, action) => {
       const { token, profile } = action.payload;
+      console.log(profile);
       state.token = token;
       state.profile = profile;
-      localStorage.setItem('profile', JSON.stringify(profile));
     },
     clearUser: (state) => {
       state.token = '';
       state.profile = null;
-      localStorage.removeItem('profile');
     },
     updateUserProfile: (state, action) => {
       state.profile = action.payload;

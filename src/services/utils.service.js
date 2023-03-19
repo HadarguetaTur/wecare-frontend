@@ -1,8 +1,11 @@
 import { findIndex, floor, random, some } from 'lodash';
 import { avatarColors } from '../utils/static.data';
-import { addUser, clearUser } from '../store/reducers/user/user.reducer';
+import { addUser, clearUser, updateUserProfile } from '../store/reducers/user/user.reducer';
 import { addNotification, clearNotification } from '../store/reducers/notification/notification.reducer';
 import millify from 'millify';
+import { APP_ENVIRONMENT } from './axios';
+import LZString from 'lz-string';
+
 export class Utils {
   static avatarColor() {
     return avatarColors[floor(random(0.9) * avatarColors.length)];
@@ -11,14 +14,10 @@ export class Utils {
   static generateAvatar(text, backgroundColor, foregroundColor = 'white') {
     const canvas = document.createElement('canvas');
     const context = canvas.getContext('2d');
-
     canvas.width = 200;
     canvas.height = 200;
-
     context.fillStyle = backgroundColor;
     context.fillRect(0, 0, canvas.width, canvas.height);
-
-    // Draw text
     context.font = 'normal 80px sans-serif';
     context.fillStyle = foregroundColor;
     context.textAlign = 'center';
@@ -29,8 +28,14 @@ export class Utils {
   }
 
   static dispatchUser(result, pageReload, dispatch, setUser) {
+    console.log(result);
     pageReload(true);
     dispatch(addUser({ token: result.data.token, profile: result.data.user }));
+    setUser(result.data.user);
+  }
+
+  static dispatchUserProfile(result, dispatch, setUser) {
+    dispatch(updateUserProfile({ profile: result.data.user }));
     setUser(result.data.user);
   }
 
@@ -51,10 +56,11 @@ export class Utils {
   }
 
   static appEnvironment() {
-    const env = process.env.REACT_APP_ENVIRONMENT;
-    if (env === 'development') {
+    if (APP_ENVIRONMENT === 'local') {
+      return 'LOCAL';
+    } else if (APP_ENVIRONMENT === 'development') {
       return 'DEV';
-    } else if (env === 'staging') {
+    } else if (APP_ENVIRONMENT === 'staging') {
       return 'STG';
     }
   }
@@ -96,6 +102,10 @@ export class Utils {
     return some(userFollowers, (user) => user._id === postCreatorId || postCreatorId === userId);
   }
 
+  static checkIfUserIsOnline(username, onlineUsers) {
+    return some(onlineUsers, (user) => user === username?.toLowerCase());
+  }
+
   static firstLetterUpperCase(word) {
     if (!word) return '';
     return `${word.charAt(0).toUpperCase()}${word.slice(1)}`;
@@ -123,12 +133,14 @@ export class Utils {
     }
   }
 
-  static checkIfUserIsOnline(username, onlineUsers) {
-    return some(onlineUsers, (user) => user === username?.toLowerCase());
-  }
-
   static getImage(imageId, imageVersion) {
     return imageId && imageVersion ? this.appImageUrl(imageVersion, imageId) : '';
+  }
+
+  static getVideo(videoId, videoVersion) {
+    return videoId && videoVersion
+      ? `https://res.cloudinary.com/wecare-img/image/upload/v${videoVersion}/${videoId}`
+      : '';
   }
 
   static removeUserFromList(list, userId) {
@@ -146,5 +158,15 @@ export class Utils {
     const blob = element.slice(0, element.size, '/image/png');
     const newFile = new File([blob], `${fileName}.png`, { type: '/image/png' });
     return newFile;
+  }
+
+  static shortenImagePath(imagePath) {
+    const prefix = 'data:image/png;base64,';
+    if (imagePath.startsWith(prefix)) {
+      const imageData = imagePath.slice(prefix.length);
+      const compressedImageData = LZString.compressToBase64(imageData);
+      return `${prefix}${compressedImageData}`;
+    }
+    return imagePath;
   }
 }

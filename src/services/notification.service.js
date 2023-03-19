@@ -3,6 +3,7 @@ import axios from './axios';
 class NotificationService {
   async getUserNotifications() {
     const response = await axios.get('/notifications');
+    console.log(response);
     return response;
   }
 

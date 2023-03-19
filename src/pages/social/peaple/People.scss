@@ -2,6 +2,7 @@
     overflow-y: scroll;
     height: 100vh;
     max-width: 1152px;
+    margin-top: 10px;
     margin: auto;
     scroll-behavior: smooth;
   
@@ -90,6 +91,14 @@
           display: block;
           font-weight: 700;
           font-size: 20px;
+          color: var(--black-6);
+          letter-spacing: 1px;
+        }
+        &-work {
+          text-align: center;
+          display: block;
+          font-weight: 500;
+          font-size: 16px;
           color: var(--black-6);
           letter-spacing: 1px;
         }

@@ -8,11 +8,13 @@ import { useNavigate } from 'react-router-dom';
 import useLocalStorage from '../../../hooks/useLocalStorage.js';
 import { useDispatch } from 'react-redux';
 import useSessionStorage from '../../../hooks/useSessionStorage.js';
+import { workList } from '../../../utils/static.data.js';
 
 const Register = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [work, setWork] = useState('');
   const [loading, setLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const [alertType, setAlertType] = useState('');
@@ -34,12 +36,12 @@ const Register = () => {
         username,
         email,
         password,
+        work,
         avatarColor,
         avatarImage
       });
       setLoggedIn(true);
       setStoredUsername(username);
-      setHasError(false);
       setAlertType('alert-success');
       Utils.dispatchUser(result, pageReload, dispatch, setUser);
     } catch (error) {
@@ -94,11 +96,22 @@ const Register = () => {
             style={{ border: `${hasError ? '1px solid #fa9b8a' : ''}` }}
             handleChange={(event) => setPassword(event.target.value)}
           />
+          <Input
+            id="work"
+            name="work"
+            type="text"
+            value={work}
+            labelText="work"
+            placeholder="what is your work?"
+            style={{ border: `${hasError ? '1px solid #fa9b8a' : ''}` }}
+            handleChange={(event) => setWork(event.target.value)}
+            dataList={workList}
+          />
         </div>
         <Button
           label={`${loading ? 'SIGNUP IN PROGRESS...' : 'SIGNUP'}`}
           className="auth-button button"
-          disabled={!username || !email || !password}
+          disabled={!username || !email || !password || !work}
         />
       </form>
     </div>

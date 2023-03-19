@@ -1,7 +1,6 @@
 import PropTypes from 'prop-types';
 import { useEffect, useCallback, useRef, useState } from 'react';
 import { cloneDeep } from 'lodash';
-
 import './Toast.scss';
 import { Utils } from '../../services/utils.service';
 import { useDispatch } from 'react-redux';
@@ -39,10 +38,10 @@ const Toast = (props) => {
 
   return (
     <div className={`toast-notification-container ${position}`}>
-      {list.map((toast, index) => (
+      {list.map((toast) => (
         <div
           data-testid="toast-notification"
-          key={index}
+          key={Utils.generateString(10)}
           className={`toast-notification toast ${position}`}
           style={{ backgroundColor: toast.backgroundColor }}
         >

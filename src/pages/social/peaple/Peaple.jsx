@@ -15,12 +15,14 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { FaCircle } from 'react-icons/fa';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
+import IconFilterBar from '../../../components/icon-filter-bar/IconFilterBar';
+import { ChatUtils } from '../../../services/chat-utils.service';
 
 const People = () => {
   const { profile } = useSelector((state) => state.user);
   const [users, setUsers] = useState([]);
   const [following, setFollowing] = useState([]);
-  const [onlineUsers] = useState([]);
+  const [onlineUsers, setOnlineUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalUsersCount, setTotalUsersCount] = useState(0);
@@ -30,7 +32,7 @@ const People = () => {
   const navigate = useNavigate();
   useInfiniteScroll(bodyRef, bottomLineRef, fetchData);
 
-  const PAGE_SIZE = 12;
+  const PAGE_SIZE = 24;
 
   function fetchData() {
     let pageNum = currentPage;
@@ -96,10 +98,12 @@ const People = () => {
 
   useEffect(() => {
     FollowersUtils.socketIOFollowAndUnfollow(users, following, setFollowing, setUsers);
+    ChatUtils.usersOnline(setOnlineUsers);
   }, [following, users]);
 
   return (
     <div className="card-container" ref={bodyRef}>
+      <IconFilterBar />
       <div className="people">People</div>
       {users.length > 0 && (
         <div className="card-element">
@@ -121,6 +125,7 @@ const People = () => {
                 />
                 <div className="card-element-header-text">
                   <span className="card-element-header-name">{data?.username}</span>
+                  <span className="card-element-header-work">{data?.work}</span>
                 </div>
               </div>
               <CardElementStats

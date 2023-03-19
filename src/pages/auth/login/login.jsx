@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux';
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
-  const [keepLoggedIn, setKeepLoggedIn] = useState('');
+  const [keepLoggedIn, setKeepLoggedIn] = useState(false);
   const [loading, setLoading] = useState(false);
   const [hasError, setHasError] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');

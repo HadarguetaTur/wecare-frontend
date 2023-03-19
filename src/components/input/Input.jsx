@@ -22,8 +22,16 @@ const Input = forwardRef((props, ref) => (
       onBlur={props.onBlur}
       className={`form-input ${props.className}`}
       style={props.style}
-      autoComplete="false"
+      list={props.id + 'datalist'}
+      autoComplete="off"
     />
+    {props.dataList && (
+      <datalist id={props.id + 'datalist'}>
+        {props.dataList.map((data) => (
+          <option key={data} value={data} />
+        ))}
+      </datalist>
+    )}
   </div>
 ));
 
@@ -39,7 +47,8 @@ Input.propTypes = {
   onClick: PropTypes.func,
   onFocus: PropTypes.func,
   onBlur: PropTypes.func,
-  style: PropTypes.object
+  style: PropTypes.object,
+  dataList: PropTypes.arrayOf(PropTypes.string)
 };
 
 export default Input;

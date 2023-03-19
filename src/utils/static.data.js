@@ -8,6 +8,14 @@ import like from '../assets/reactions/like.png';
 import love from '../assets/reactions/love.png';
 import sad from '../assets/reactions/sad.png';
 import wow from '../assets/reactions/wow.png';
+import DevelopmentalMedicine from '../assets/images/DevelopmentalMedicine.png';
+import DevelopmentalPsychology from '../assets/images/DevelopmentalPsychology.png';
+import OccupationalTherapy from '../assets/images/OccupationalTherapy.png';
+import NaturalMedicine from '../assets/images/NaturalMedicine.png';
+import Psychotherapy from '../assets/images/psychotherapy.png';
+import Nourishment from '../assets/images/nourishment.png';
+import Clinics from '../assets/images/Clinics.png';
+import SpeechTherapy from '../assets/images/SpeechTherapy.png';
 import {
   FaBirthdayCake,
   FaComments,
@@ -24,6 +32,22 @@ import {
   FaUserPlus,
   FaUsers
 } from 'react-icons/fa';
+
+export const workList = [
+  'Pediatrician',
+  'Child Psychologist',
+  'Speech-Language Pathologist',
+  'Occupational Therapist',
+  'Physical Therapist',
+  'Developmental Psychologist',
+  'Child and Family Psychologist',
+  'Child Psychiatrist',
+  'Play Therapist',
+  'Behavioral Therapist',
+  'Family Therapist',
+  'Art Therapist',
+  'Other'
+];
 
 export const sideBarItems = [
   {
@@ -67,6 +91,48 @@ export const sideBarItems = [
     name: 'Profile',
     url: '/app/social/profile',
     iconName: 'FaRegUser'
+  }
+];
+export const filterBarIcons = [
+  {
+    index: 1,
+    name: 'Doctors',
+    src: DevelopmentalMedicine
+  },
+  {
+    index: 2,
+    name: 'psychologists',
+    src: DevelopmentalPsychology
+  },
+  {
+    index: 3,
+    name: 'Occupational Therapy',
+    src: OccupationalTherapy
+  },
+  {
+    index: 4,
+    name: 'Natural Medicine',
+    src: NaturalMedicine
+  },
+  {
+    index: 5,
+    name: 'psychotherapy',
+    src: Psychotherapy
+  },
+  {
+    index: 7,
+    name: 'nourishment',
+    src: Nourishment
+  },
+  {
+    index: 8,
+    name: 'Clinics',
+    src: Clinics
+  },
+  {
+    index: 9,
+    name: 'Speech Therapy',
+    src: SpeechTherapy
   }
 ];
 

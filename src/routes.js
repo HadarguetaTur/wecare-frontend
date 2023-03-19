@@ -1,18 +1,26 @@
 import { AuthTabs, ForgotPassword, ResetPassword } from './pages/auth';
 import Error from './pages/error/Error';
+import ProtectedRoute from './pages/ProtectedRoute';
 import { useRoutes } from 'react-router-dom';
 import { Suspense, lazy } from 'react';
-import StreamsSkeleton from './pages/social/streams/streamSkelaton';
+import StreamsSkeleton from './pages/social/streams/StreamSkelaton';
+import NotificationSkeleton from './pages/social/notificatiions/NotificationSkeleton';
+import CardSkeleton from './components/card-element/CardSkeleton';
+import PhotoSkeleton from './pages/social/photos/PhotoSkeleton';
+import ProfileSkeleton from './pages/social/profile/ProfileSkeleton';
+import ChatSkeleton from './pages/social/chat/ChatSkeleton';
+import VideoSkeleton from './pages/social/videos/VideoSkeleton';
 
 const Social = lazy(() => import('./pages/social/Social'));
 const Chat = lazy(() => import('./pages/social/chat/Chat'));
-const Followers = lazy(() => import('./pages/social/followers/followers'));
-const Following = lazy(() => import('./pages/social/following/following'));
+const Followers = lazy(() => import('./pages/social/followers/Followers'));
+const Following = lazy(() => import('./pages/social/following/Following'));
 const Notification = lazy(() => import('./pages/social/notificatiions/Notifications'));
 const People = lazy(() => import('./pages/social/peaple/Peaple'));
 const Photos = lazy(() => import('./pages/social/photos/Photos'));
+const Videos = lazy(() => import('./pages/social/videos/Videos'));
 const Profile = lazy(() => import('./pages/social/profile/Profile'));
-const Streams = lazy(() => import('./pages/social/streams/streams'));
+const Streams = lazy(() => import('./pages/social/streams/Streams'));
 
 export const AppRouter = () => {
   const elements = useRoutes([
@@ -30,7 +38,11 @@ export const AppRouter = () => {
     },
     {
       path: '/app/social',
-      element: <Social />,
+      element: (
+        <ProtectedRoute>
+          <Social />
+        </ProtectedRoute>
+      ),
       children: [
         {
           path: 'streams',
@@ -43,7 +55,7 @@ export const AppRouter = () => {
         {
           path: 'chat/messages',
           element: (
-            <Suspense>
+            <Suspense fallback={<ChatSkeleton />}>
               <Chat />
             </Suspense>
           )
@@ -51,7 +63,7 @@ export const AppRouter = () => {
         {
           path: 'people',
           element: (
-            <Suspense>
+            <Suspense fallback={<CardSkeleton />}>
               <People />
             </Suspense>
           )
@@ -59,7 +71,7 @@ export const AppRouter = () => {
         {
           path: 'followers',
           element: (
-            <Suspense>
+            <Suspense fallback={<CardSkeleton />}>
               <Followers />
             </Suspense>
           )
@@ -67,7 +79,7 @@ export const AppRouter = () => {
         {
           path: 'following',
           element: (
-            <Suspense>
+            <Suspense fallback={<CardSkeleton />}>
               <Following />
             </Suspense>
           )
@@ -75,15 +87,23 @@ export const AppRouter = () => {
         {
           path: 'photos',
           element: (
-            <Suspense>
+            <Suspense fallback={<PhotoSkeleton />}>
               <Photos />
+            </Suspense>
+          )
+        },
+        {
+          path: 'videos',
+          element: (
+            <Suspense fallback={<VideoSkeleton />}>
+              <Videos />
             </Suspense>
           )
         },
         {
           path: 'notifications',
           element: (
-            <Suspense>
+            <Suspense fallback={<NotificationSkeleton />}>
               <Notification />
             </Suspense>
           )
@@ -91,7 +111,7 @@ export const AppRouter = () => {
         {
           path: 'profile/:username',
           element: (
-            <Suspense>
+            <Suspense fallback={<ProfileSkeleton />}>
               <Profile />
             </Suspense>
           )

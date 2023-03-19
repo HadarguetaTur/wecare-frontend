@@ -19,7 +19,6 @@ const AddPost = ({ selectedImage }) => {
   const { gifModalIsOpen, feeling } = useSelector((state) => state.modal);
   const { gifUrl, image, privacy } = useSelector((state) => state.post);
   const { profile } = useSelector((state) => state.user);
-  console.log(profile);
   const [loading, setLoading] = useState(false);
   const [postImage, setPostImage] = useState('');
   const [allowedNumberOfCharacters] = useState('100/100');
@@ -85,7 +84,6 @@ const AddPost = ({ selectedImage }) => {
         if (selectedPostImage) {
           result = await ImageUtils.readAsBase64(selectedPostImage);
         }
-
         if (selectedImage) {
           result = await ImageUtils.readAsBase64(selectedImage);
         }

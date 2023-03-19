@@ -54,7 +54,9 @@ const Header = () => {
   const [setLoggedIn] = useLocalStorage('keepLoggedIn', 'set');
   const [deleteSessionPageReload] = useSessionStorage('pageReload', 'delete');
 
-  const backgrounColor = `${environment === 'DEV' ? '#50b5ff' : environment === 'STG' ? '#e9710f' : ''}`;
+  const backgrounColor = `${
+    environment === 'DEV' || environment === 'LOCAL' ? '#50b5ff' : environment === 'STG' ? '#e9710f' : ''
+  }`;
 
   const getUserNotifications = async () => {
     try {
@@ -203,6 +205,7 @@ const Header = () => {
             </div>
             <ul className="header-nav">
               <li
+                data-testid="notification-list-item"
                 className="header-nav-item active-item"
                 onClick={() => {
                   setIsMessageActive(false);
@@ -236,6 +239,7 @@ const Header = () => {
                 &nbsp;
               </li>
               <li
+                data-testid="message-list-item"
                 className="header-nav-item active-item"
                 onClick={() => {
                   setIsMessageActive(true);
@@ -250,6 +254,7 @@ const Header = () => {
                 &nbsp;
               </li>
               <li
+                data-testid="settings-list-item"
                 className="header-nav-item"
                 onClick={() => {
                   setIsSettingsActive(!isSettingsActive);

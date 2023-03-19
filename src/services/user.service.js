@@ -1,5 +1,4 @@
 import axios from './axios';
-
 class UserService {
   async getUserSuggestions() {
     const response = await axios.get('/user/profile/user/suggestions');
@@ -13,6 +12,7 @@ class UserService {
 
   async checkCurrentUser() {
     const response = await axios.get('/currentuser');
+    console.log(response);
     return response;
   }
 
@@ -56,5 +56,4 @@ class UserService {
     return response;
   }
 }
-
 export const userService = new UserService();

@@ -12,6 +12,7 @@ import { getPosts } from '../../../store/api/posts';
 import { uniqBy } from 'lodash';
 import useInfiniteScroll from '../../../hooks/useInfiniteScroll';
 import { PostUtils } from '../../../services/post-utils.service';
+import IconFilterBar from '../../../components/icon-filter-bar/IconFilterBar';
 
 const Streams = () => {
   const { allPosts } = useSelector((state) => state);
@@ -70,6 +71,9 @@ const Streams = () => {
 
   return (
     <div className="streams" data-testid="streams">
+      <div className="stream-iconBar">
+        <IconFilterBar />
+      </div>
       <div className="streams-content">
         <div className="streams-post" ref={bodyRef}>
           <PostForm />
